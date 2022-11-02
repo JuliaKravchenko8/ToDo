@@ -36,3 +36,13 @@ render();
 
 // add event listeners
 refs.form.addEventListener("submit", addItem);
+
+// <a class="link" href="google.com">GOOGLE</a>;
+
+const body = document.querySelector("body");
+const link = document.createElement("a");
+link.href = "https://google.com";
+link.textContent = "Google";
+link.classList.add("link");
+
+console.log(link.outerHTML);
