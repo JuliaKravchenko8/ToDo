@@ -1,4 +1,4 @@
-import { Item } from "./Item.js";
+import { getItemTemplate } from "./getItemTemplate.js";
 import { items } from "./items.js";
 
 const refs = {
@@ -8,24 +8,28 @@ const refs = {
 };
 
 const render = () => {
-  const lis = items.map((item) => Item(item));
+  const lis = items.map(getItemTemplate);
 
   refs.list.innerHTML = "";
   refs.list.insertAdjacentHTML("beforeend", lis.join(""));
 };
 
-const addItem = (e) => {
-  e.preventDefault();
-
-  const { value } = e.target.elements.text;
+const addItem = (text) => {
   const playload = {
-    text: value,
+    text,
     isDone: false,
   };
 
-  refs.form.reset();
   items.push(playload);
+};
+
+const handleSubmit = (e) => {
+  const { value } = e.target.elements.text;
+
+  e.preventDefault();
+  addItem(value);
   render();
+  refs.form.reset();
 };
 
 // run
@@ -35,14 +39,14 @@ render();
 // render();
 
 // add event listeners
-refs.form.addEventListener("submit", addItem);
+refs.form.addEventListener("submit", handleSubmit);
 
 // <a class="link" href="google.com">GOOGLE</a>;
 
-const body = document.querySelector("body");
-const link = document.createElement("a");
-link.href = "https://google.com";
-link.textContent = "Google";
-link.classList.add("link");
+// const body = document.querySelector("body");
+// const link = document.createElement("a");
+// link.href = "https://google.com";
+// link.textContent = "Google";
+// link.classList.add("link");
 
-console.log(link.outerHTML);
+// console.log(link.outerHTML);
