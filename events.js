@@ -28,4 +28,4 @@ const handleInput = (event) => {
   console.log(event.target.value);
 };
 
-refs.input.addEventListener("change", handleInput);
+refs.input.addEventListener("input", _.debounce(handleInput, 1000));
