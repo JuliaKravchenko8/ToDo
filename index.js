@@ -1,10 +1,21 @@
 import { getItemTemplate } from "./getItemTemplate.js";
-import { items } from "./items.js";
+import { items as importedItems } from "./items.js";
+
+const modal = basicLightbox.create(`
+    <div class="modal">
+        <p class='modal-text>
+        </p>
+        <button>Close</button>
+    </div>
+`);
+
+let items = importedItems;
 
 const refs = {
   list: document.querySelector(".list"),
   form: document.querySelector(".form"),
-  myButton: document.querySelector(".myButton"),
+  modalText: modal.element().querySelector(".modal-text"),
+  modalButton: modal.element().querySelector("button"),
 };
 
 const render = () => {
@@ -16,8 +27,10 @@ const render = () => {
 
 const addItem = (text) => {
   const playload = {
+    id: uuid.v4(),
     text,
     isDone: false,
+    created: new Date(),
   };
 
   items.push(playload);
@@ -32,21 +45,54 @@ const handleSubmit = (e) => {
   refs.form.reset();
 };
 
+const toggleItem = (id) => {
+  items = items.map((item) =>
+    item.id === id
+      ? {
+          ...item,
+          isDone: !item.isDone,
+        }
+      : item
+  );
+};
+
+const viewItem = (id) => {
+  const { created } = items.find((item) => item.id === id);
+  refs.modalText.textContent = created;
+  refs.modalImage.src = "./cat.jpg";
+  modal.show();
+};
+
+const deleteItem = (id) => {
+  items = items.filter((item) => item.id !== id);
+  render();
+};
+
+const handleListClick = (e) => {
+  if (e.target === e.currentTarget) return;
+
+  const { action } = e.target.dataset;
+  const parent = e.target.closest("li");
+  const { id } = parent.dataset;
+
+  switch (action) {
+    case "toggle":
+      toggleItem(id);
+      break;
+
+    case "view":
+      viewItem(id);
+      break;
+
+    case "delete":
+      deleteItem(id);
+      break;
+  }
+};
+
 // run
 render();
 
-// items.push("item 4");
-// render();
-
-// add event listeners
 refs.form.addEventListener("submit", handleSubmit);
-
-// <a class="link" href="google.com">GOOGLE</a>;
-
-// const body = document.querySelector("body");
-// const link = document.createElement("a");
-// link.href = "https://google.com";
-// link.textContent = "Google";
-// link.classList.add("link");
-
-// console.log(link.outerHTML);
+refs.list.addEventListener("click", handleListClick);
+// refs.modalButton.addEventListener("click", modal.close);

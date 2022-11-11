@@ -19,3 +19,18 @@
   font-weight: bold;
   color: #5d9f0b;
 }
+
+.list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+.modal {
+  background-color: white;
+  padding: 50px;
+  border-radius: 5px;
+}

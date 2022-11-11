@@ -4,8 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.css"
+    />
     <link rel="stylesheet" type="text/css" href="/styles.css" />
     <title>ToDo</title>
+    <style>
+      form {
+        padding: 10px 25px;
+        background-color: orange;
+      }
+    </style>
   </head>
   <body>
     <form class="form">
@@ -13,9 +23,11 @@
         <span>Text</span>
         <input type="text" name="text" placeholder="enter text..." />
       </label>
-      <button type="submit">+ Add</button>
+      <button class="btn success" type="submit">+ Add</button>
     </form>
     <ul class="list"></ul>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
     <script src="/index.js" type="module"></script>
   </body>
